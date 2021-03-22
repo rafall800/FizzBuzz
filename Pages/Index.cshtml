@@ -1,0 +1,22 @@
+﻿@page
+@model IndexModel
+@{
+}
+<span asp-validation-for="Liczba.FizzBuzz" class="text-danger"></span>
+<form method="post">
+    <div class="text-center">
+        <h1 class="display-4">FizzBuzz</h1>
+    </div>
+    <div class="text-center m-2">
+        <input asp-for="Liczba.FizzBuzz" /><br />
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Zatwierdź</button>
+    </div>
+    <div class="text-center">
+        @if (Model.Liczba != null) 
+        { 
+                <label class="text-center">Wynik: @Model.Liczba.Result</label> 
+        }
+    </div>
+</form>
