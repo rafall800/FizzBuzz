@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FizzBuzz.Data;
 using FizzBuzz.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,31 +15,29 @@ namespace FizzBuzz.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
+        private readonly Wyniki _wyniki;
         [BindProperty]
         public Liczba Liczba { get; set; }
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(ILogger<IndexModel> logger, Wyniki wyniki)
         {
             _logger = logger;
+            _wyniki = wyniki;
         }
-
         public void OnGet()
         {
-
         }
         public void OnPost()
         {
             if (ModelState.IsValid)
             {
-            if (Liczba.FizzBuzz % 3 == 0)
-            {
-                Liczba.Result += "fizz";
-            }
-            if (Liczba.FizzBuzz % 5 == 0)
-            {
-                Liczba.Result += "buzz";
-            }
-            if (Liczba.Result == null)
-                    Liczba.Result = String.Format("Liczba {0} nie spełnia kryteriów Fizz/Buzz.",Liczba.FizzBuzz);
+                Liczba.Check(Liczba.FizzBuzz);
+                Liczba.Date = DateTime.Now;
+                _wyniki.Liczba.Add(Liczba);
+                if(_wyniki.Liczba.Count()>9)
+                {
+                    _wyniki.Remove(_wyniki.Liczba.First());
+                }
+                _wyniki.SaveChanges();
                 HttpContext.Session.SetString("SessionLiczba",
                JsonConvert.SerializeObject(Liczba));  
             }

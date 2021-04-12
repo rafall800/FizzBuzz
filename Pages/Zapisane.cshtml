@@ -1,0 +1,16 @@
+﻿@page
+@model FizzBuzz.Pages.ZapisaneModel
+@{
+}
+@if (Model.Liczba != null)
+{
+    <div class="col">
+        <p>Liczba: @Model.Liczba.FizzBuzz</p>
+        <p>Data: @Model.Liczba.Date</p>
+        <p>Wynik: @Model.Liczba.Result</p>
+    </div>
+}
+else
+{
+    <p class="text-center">Brak danych do wyświetlenia</p>
+}
