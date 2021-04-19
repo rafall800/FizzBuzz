@@ -33,10 +33,6 @@ namespace FizzBuzz.Pages
                 Liczba.Check(Liczba.FizzBuzz);
                 Liczba.Date = DateTime.Now;
                 _wyniki.Liczba.Add(Liczba);
-                if(_wyniki.Liczba.Count()>9)
-                {
-                    _wyniki.Remove(_wyniki.Liczba.First());
-                }
                 _wyniki.SaveChanges();
                 HttpContext.Session.SetString("SessionLiczba",
                JsonConvert.SerializeObject(Liczba));  
